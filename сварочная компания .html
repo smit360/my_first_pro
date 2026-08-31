@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>МеталлПрофи — сварка металлоконструкций</title>
+    <style>
+        :root {
+            --primary: #ff6b00;
+            --primary-dark: #cc5500;
+            --bg: #1a1a1a;
+            --card-bg: #242424;
+            --text: #e0e0e0;
+            --heading: #ffffff;
+            --border: #3a3a3a;
+            --shadow: 0 4px 15px rgba(0,0,0,0.4);
+            --shadow-hover: 0 8px 25px rgba(0,0,0,0.6);
+            --radius: 8px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            color: var(--heading);
+            font-weight: 700;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Шапка */
+        header {
+            background: rgba(26,26,26,0.95);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 15px 0;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav a {
+            color: #ccc;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .burger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .burger span {
+            width: 25px;
+            height: 3px;
+            background: #fff;
+            border-radius: 3px;
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
+            text-align: center;
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255,107,0,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #aaa;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: #fff;
+            padding: 14px 30px;
+            border-radius: 4px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(255,107,0,0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 18px rgba(255,107,0,0.5);
+        }
+
+        section {
+            padding: 70px 0;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 70px;
+            height: 3px;
+            background: var(--primary);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        /* Услуги */
+        .services {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: center;
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 30px 25px;
+            width: 280px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border);
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .service-card h3 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        /* Преимущества */
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .feature-item {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 25px;
+            width: 240px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border);
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .feature-item h4 {
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        /* Портфолио */
+        .portfolio {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: center;
+        }
+
+        .portfolio-item {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            overflow: hidden;
+            width: 320px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border);
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .portfolio-img {
+            background: #2c2c2c;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-size: 2.5rem;
+        }
+
+        .portfolio-body {
+            padding: 20px;
+        }
+
+        .portfolio-body h3 {
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        /* О компании */
+        .about {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .about-text {
+            flex: 1 1 400px;
+        }
+
+        .about-text p {
+            margin-bottom: 15px;
+        }
+
+        .about-image {
+            flex: 1 1 300px;
+            background: #2c2c2c;
+            border-radius: var(--radius);
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            border: 1px solid var(--border);
+        }
+
+        /* Контакты */
+        .contact-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: center;
+        }
+
+        .contact-info {
+            flex: 1 1 300px;
+        }
+
+        .contact-info h3 {
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .contact-info ul {
+            list-style: none;
+        }
+
+        .contact-info li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-form {
+            flex: 1 1 400px;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #ccc;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            background: #1a1a1a;
+            color: #fff;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255,107,0,0.2);
+        }
+
+        button[type="submit"] {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: var(--transition);
+        }
+
+        button[type="submit"]:hover {
+            background: var(--primary-dark);
+        }
+
+        .success-message {
+            display: none;
+            background: #2e7d32;
+            color: #fff;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        footer {
+            background: #111;
+            color: #aaa;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+        }
+
+        footer a {
+            color: #ccc;
+            margin: 0 10px;
+        }
+
+        /* Анимации */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                flex-direction: column;
+                background: #1a1a1a;
+                width: 75%;
+                height: calc(100vh - 70px);
+                padding: 30px;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+                transition: right 0.3s ease;
+                gap: 20px;
+                z-index: 99;
+            }
+
+            nav ul.active {
+                right: 0;
+            }
+
+            .burger {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .services, .portfolio, .features {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .service-card, .portfolio-item, .feature-item {
+                width: 100%;
+                max-width: 350px;
+            }
+
+            .about {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav">
+            <div class="logo">⚙️ Металл<span>Профи</span></div>
+            <nav>
+                <ul id="nav-menu">
+                    <li><a href="#home">Главная</a></li>
+                    <li><a href="#about">О нас</a></li>
+                    <li><a href="#services">Услуги</a></li>
+                    <li><a href="#features">Преимущества</a></li>
+                    <li><a href="#portfolio">Работы</a></li>
+                    <li><a href="#contact">Контакты</a></li>
+                </ul>
+                <div class="burger" id="burger">
+                    <span></span><span></span><span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container fade-in">
+            <h1>Сварка <span>металлоконструкций</span> любой сложности</h1>
+            <p>Изготовление и монтаж металлических изделий: заборы, ворота, лестницы, навесы, козырьки и многое другое. Работаем с 2010 года.</p>
+            <a href="#contact" class="btn">Заказать расчёт</a>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <h2>О компании</h2>
+            <div class="about fade-in">
+                <div class="about-text">
+                    <p>Компания «МеталлПрофи» специализируется на производстве и монтаже металлоконструкций любой сложности. Мы выполняем полный цикл работ: от проектирования до установки.</p>
+                    <p>Наши мастера имеют опыт более 10 лет и используют современное сварочное оборудование. Гарантируем качество, надёжность и соблюдение сроков.</p>
+                    <p>Работаем с частными лицами и организациями. Выезд на замер — бесплатно.</p>
+                </div>
+                <div class="about-image">
+                    🔥⚙️
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="container">
+            <h2>Наши услуги</h2>
+            <div class="services fade-in">
+                <div class="service-card">
+                    <div class="service-icon">🏗️</div>
+                    <h3>Металлоконструкции</h3>
+                    <p>Изготовление и монтаж несущих конструкций, ферм, колонн.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🚪</div>
+                    <h3>Ворота и заборы</h3>
+                    <p>Сварные ворота, калитки, ограждения из профнастила и ковки.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🪜</div>
+                    <h3>Лестницы</h3>
+                    <p>Металлические лестницы, перила, ограждения для дома и улицы.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🏠</div>
+                    <h3>Навесы и козырьки</h3>
+                    <p>Каркасы для навесов, козырьков, террас из металла.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🔩</div>
+                    <h3>Изделия на заказ</h3>
+                    <p>Любые нестандартные металлические изделия по вашим чертежам.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🛠️</div>
+                    <h3>Ремонт и усиление</h3>
+                    <p>Ремонт металлоконструкций, усиление, замена элементов.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features">
+        <div class="container">
+            <h2>Почему мы</h2>
+            <div class="features fade-in">
+                <div class="feature-item">
+                    <div class="feature-icon">⭐</div>
+                    <h4>Опыт 10+ лет</h4>
+                    <p>Более 500 выполненных проектов.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <h4>Современное оборудование</h4>
+                    <p>Полуавтоматическая сварка, плазменная резка.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📐</div>
+                    <h4>Точный расчёт</h4>
+                    <p>Проектирование и чертежи в подарок.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🤝</div>
+                    <h4>Договор и гарантия</h4>
+                    <p>Фиксируем сроки и стоимость, гарантия 2 года.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio">
+        <div class="container">
+            <h2>Наши работы</h2>
+            <div class="portfolio fade-in">
+                <div class="portfolio-item">
+                    <div class="portfolio-img">🏗️</div>
+                    <div class="portfolio-body">
+                        <h3>Навес для автомобиля</h3>
+                        <p>Каркас из профильной трубы, поликарбонат. Срок — 3 дня.</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-img">🚪</div>
+                    <div class="portfolio-body">
+                        <h3>Откатные ворота</h3>
+                        <p>Сварная конструкция с автоматикой. Длина 4 метра.</p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-img">🪜</div>
+                    <div class="portfolio-body">
+                        <h3>Лестница в дом</h3>
+                        <p>Металлический каркас с деревянными ступенями.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2>Контакты</h2>
+            <div class="contact-wrapper fade-in">
+                <div class="contact-info">
+                    <h3>Свяжитесь с нами</h3>
+                    <ul>
+                        <li>📞 +7 (900) 123-45-67</li>
+                        <li>✉️ info@metallprofi.ru</li>
+                        <li>📍 г. Москва, ул. Промышленная, 5</li>
+                        <li>🕒 Пн–Сб: 8:00–20:00</li>
+                    </ul>
+                </div>
+                <form class="contact-form" id="contact-form">
+                    <div class="form-group">
+                        <label for="name">Ваше имя</label>
+                        <input type="text" id="name" required placeholder="Иван">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Телефон</label>
+                        <input type="tel" id="phone" required placeholder="+7 (___) ___-__-__">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Описание задачи</label>
+                        <textarea id="message" rows="4" required placeholder="Например: нужно сварить забор длиной 20 метров"></textarea>
+                    </div>
+                    <button type="submit">Отправить заявку</button>
+                    <div class="success-message" id="success-message">
+                        Спасибо! Мы перезвоним вам в течение 30 минут.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 МеталлПрофи. Все права защищены.</p>
+            <p>
+                <a href="#home">Главная</a> |
+                <a href="#services">Услуги</a> |
+                <a href="#contact">Контакты</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Мобильное меню
+        const burger = document.getElementById('burger');
+        const navMenu = document.getElementById('nav-menu');
+
+        burger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Обработка формы
+        const form = document.getElementById('contact-form');
+        const successMessage = document.getElementById('success-message');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            successMessage.style.display = 'block';
+            form.reset();
+            setTimeout(() => {
+                successMessage.style.display = 'none';
+            }, 5000);
+        });
+
+        // Анимация появления при скролле
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeElements.forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
